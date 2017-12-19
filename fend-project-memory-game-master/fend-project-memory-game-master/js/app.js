@@ -9,12 +9,21 @@ const cards = ["fa-diamond","fa-paper-plane-o","fa-anchor","fa-bolt","fa-cube","
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
-for (let i = 0; i <= 1; i++) {
-    shuffle(cards);
-    cards.forEach(setCard);
+/*
+***notes about the functions below***
+first the selector was written to select the deck class and add the cards to the page. the selector statement needed the individual index of 'cards' to add to the page so it was added to a function and the array 'cards' is iterated over with a foreach loop. the second function 'callCard' was then created to be able to call a reset to the whole game later.
+*/
 
-    function setCard(card) {
-        $(".deck").append(' <li class="card"><i class="fa ${card}" </i></li> ');
+function callCard() {
+
+
+    for (let i = 0; i <= 1; i++) {
+        shuffle(cards);
+        cards.forEach(setCard);
+
+        function setCard(card) {
+            $(".deck").append(' <li class="card"><i class="fa ${card}" </i></li> ');
+        }
     }
 }
 
