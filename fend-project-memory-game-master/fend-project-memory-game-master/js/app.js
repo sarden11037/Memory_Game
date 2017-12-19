@@ -2,13 +2,21 @@
  * Create a list that holds all of your cards
  */
 
-const cards = ["fa-diamond","fa-paper-plane-o","fa-anchor","fa-bolt","fa-cube","fa-bicycle","fa-bomb"];
+const cards = ["fa-diamond","fa-paper-plane-o","fa-anchor","fa-bolt","fa-cube","fa-bicycle","fa-bomb","fa-leaf"];
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
+for (let i = 0; i <= 1; i++) {
+    shuffle(cards);
+    cards.forEach(setCard);
+
+    function setCard(card) {
+        $(".deck").append(' <li class="card"><i class="fa ${card}" </i></li> ');
+    }
+}
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
