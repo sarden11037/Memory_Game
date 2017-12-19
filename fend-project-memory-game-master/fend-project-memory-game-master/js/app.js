@@ -20,11 +20,12 @@ function callCard() {
     for (let i = 0; i <= 1; i++) {
         shuffle(cards);
         cards.forEach(setCard);
+    }
 
         function setCard(card) {
-            $(".deck").append(' <li class="card"><i class="fa ${card}" </i></li> ');
+            $(".deck").append(` <li class="card"><i class="fa ${card}"> </i></li> `);
         }
-    }
+    
 }
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -42,9 +43,18 @@ function shuffle(array) {
     return array;
 }
 
+callCard();
+
+
+    $("li").click(function() {
+        $(this).css("font-size","33px");
+        alert("test");
+    });
+
 
 /*
  * set up the event listener for a card. If a card is clicked:
+ 
  *  - display the card's symbol (put this functionality in another function that you call from this one)
  *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
  *  - if the list already has another card, check to see if the two cards match
@@ -53,3 +63,4 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
