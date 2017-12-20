@@ -3,6 +3,9 @@
  */
 
 const cards = ["fa-diamond","fa-paper-plane-o","fa-anchor","fa-bolt","fa-cube","fa-bicycle","fa-bomb","fa-leaf"];
+let opened = [];
+let cardCounter=0;
+let openCard;
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -45,12 +48,26 @@ function shuffle(array) {
 
 callCard();
 
+//this event listener opens/displays the card
+// that has been clicked
 
+function gamePlay() {
     $("li").click(function() {
-        $(this).css("font-size","33px");
-        alert("test");
-    });
+        $(this).addClass('open show');
+        openCard = $(":first-child", this).attr('class');
+        cardCounter++;
+        checkCardsMatch(openCard);
 
+    });
+}
+
+function checkCardsMatch(open) {
+    if (cardCounter === 1) {
+        opened[0] = open;
+    } else if (cardCounter === 2) {
+        opened[1] = open;
+    }
+}
 
 /*
  * set up the event listener for a card. If a card is clicked:
