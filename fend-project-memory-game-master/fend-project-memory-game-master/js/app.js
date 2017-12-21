@@ -4,8 +4,8 @@
 
 const cards = ["fa-diamond","fa-paper-plane-o","fa-anchor","fa-bolt","fa-cube","fa-bicycle","fa-bomb","fa-leaf"];
 let opened = [];
-let cardCounter=0;
-let openCard;
+let cardCounter=1;
+let openCard, openCardSecond;
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -53,42 +53,45 @@ callCard();
 
 function gamePlay() {
     $("li").click(function() {
-        $(this).toggleClass('open show');
-        openCard = $(":first-child", this).attr('class');
-        cardCounter++;
-        checkCardsMatch(openCard);
+        $(this).addClass('open show');//opens the card
+        if(cardCounter === 1) {
+           openCard = $(":first-child", this).attr('class');
+            cardCounter++;
+            
+        }
+        else {
+            
+            openCardSecond = $(":first-child", this).attr('class');
+            cardCounter = 1;
+            matchCards(openCard,openCardSecond);
+            
+
+        }
+        
+        
 
     });
 }
 gamePlay();
 
-function checkCardsMatch(open) {
-    if (cardCounter === 1) {
-        opened[0] = open;
-        alert($(this));
-    } else if (cardCounter === 2) {
-        opened[1] = open;
-        alert($(this));
-        cardCounter=0;
-        cardsMatch();
-    }
-    
-}
-function cardsMatch() {
-    if(opened[0] === opened[1]) {
-        $("opened[0]").toggleClass('match');
-        opened[0] = null;
-        opened[1]=null;
+function matchCards(first,second) {
+    if(first === second) {
         
     }
-    else if (opened[0] !== opened[1]) {
-        
+    else {
+        alert("fall in else match");
+        $("i[class=" + first + "]").parent().removeClass('open show');
+       // alert("first find i ");
+        //$("i[class=" + second + "]").parent().removeClass('open show');
+        //$("li",first).removeClass('open show');
+        //$("li").find('i[class=' + first +  ']').removeClass('open show');
+        openCard =null;
+        openCardSecond =null;
+
     }
 }
 
-function cardsDoNotMatch() {
-    
-}
+
 
 /*
  * set up the event listener for a card. If a card is clicked:
