@@ -53,20 +53,41 @@ callCard();
 
 function gamePlay() {
     $("li").click(function() {
-        $(this).addClass('open show');
+        $(this).toggleClass('open show');
         openCard = $(":first-child", this).attr('class');
         cardCounter++;
         checkCardsMatch(openCard);
 
     });
 }
+gamePlay();
 
 function checkCardsMatch(open) {
     if (cardCounter === 1) {
         opened[0] = open;
+        alert($(this));
     } else if (cardCounter === 2) {
         opened[1] = open;
+        alert($(this));
+        cardCounter=0;
+        cardsMatch();
     }
+    
+}
+function cardsMatch() {
+    if(opened[0] === opened[1]) {
+        $("opened[0]").toggleClass('match');
+        opened[0] = null;
+        opened[1]=null;
+        
+    }
+    else if (opened[0] !== opened[1]) {
+        
+    }
+}
+
+function cardsDoNotMatch() {
+    
 }
 
 /*
