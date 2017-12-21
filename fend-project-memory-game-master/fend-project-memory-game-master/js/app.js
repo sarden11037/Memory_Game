@@ -68,6 +68,9 @@ function checkCardsMatch(open) {
         opened[1] = open;
     }
 }
+function checkCardsNotMAtch() {
+    
+}
 
 /*
  * set up the event listener for a card. If a card is clicked:
