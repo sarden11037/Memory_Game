@@ -1,0 +1,6 @@
+
+    1.I am on branch newMatch.
+    2.I am trying to write a jQuery statement that flips the cards back to the no-show position when they do not match.
+    current set up. on event listener click, a counter determines if the click if for a first card or a second card. first card-click saves to a variable. second click saves to a different variable, resets click counter, passes those two variables to a function to check if they match.
+    3.what is being saved in the two variables upon clicking is the class name for the <i>, i.e. fa fa-bomb or fa fa-bicycle. those two variables are checked for equality in the match function. if they DO NOT match....this is where I am having trouble.
+  4. I wrote a jQuery statement stating , find all <i> elements that match class name variable that was saved in click event and passed into match function, find its parent <li> , and remove the classes open show.

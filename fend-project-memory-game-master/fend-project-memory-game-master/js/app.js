@@ -53,7 +53,7 @@ callCard();
 
 function gamePlay() {
     $("li").click(function() {
-        $(this).addClass('open show');//opens the card
+        $(this).toggleClass('open show');//opens the card
         if(cardCounter === 1) {
            openCard = $(":first-child", this).attr('class');
             cardCounter++;
@@ -80,11 +80,12 @@ function matchCards(first,second) {
     }
     else {
         alert("fall in else match");
-        $("i[class=" + first + "]").parent().removeClass('open show');
+        //$("i[class=" + first + "]").parent().removeClass('open show');
        // alert("first find i ");
         //$("i[class=" + second + "]").parent().removeClass('open show');
         //$("li",first).removeClass('open show');
         //$("li").find('i[class=' + first +  ']').removeClass('open show');
+        $("li").find(first).toggleClass('open show');
         openCard =null;
         openCardSecond =null;
 
