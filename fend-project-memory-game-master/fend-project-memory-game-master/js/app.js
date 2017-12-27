@@ -7,6 +7,8 @@ let movesCounter = 0;
 let cardCounter=1;
 let openCard;
 let checker =true;
+let sec = 0;
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -55,18 +57,19 @@ function shuffle(array) {
 
     function gamePlay() {
         $("li").click(function() {
-            $(this).toggleClass('open show'); //opens the card
-            movesStars();
             
             if (cardCounter === 1) {
+                $(this).toggleClass('open show');
                 openCard = $(":first-child", this).attr('class');
                 cardCounter++;
+                movesStars();
 
-            } else {
-
+            } else if (!$(this).hasClass('open show')) {
+                $(this).toggleClass('open show');
                 openCardSecond = $(":first-child", this).attr('class');
                 cardCounter = 1;
                 matchCards(openCard, openCardSecond);
+                movesStars();
             }
         });
     }
@@ -116,8 +119,19 @@ function startGame() {
     setTimeout(function() {
         $("li").removeClass('open show');
     }, delayInMilliseconds);
+    
 }
 startGame();
+ 
+function pad(val) {
+    return val > 9 ? val : "0" + val;
+}
+setInterval(function() {
+    document.getElementById("seconds").innerHTML = pad(++sec % 60);
+    document.getElementById("minutes").innerHTML = pad(parseInt(sec / 60, 10));
+}, 1000);
+
+
 /*
  * set up the event listener for a card. If a card is clicked:
  
