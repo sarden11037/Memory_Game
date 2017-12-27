@@ -46,7 +46,7 @@ function shuffle(array) {
     return array;
 }
 
-callCard();
+
 
 //this event listener opens/displays the card
 // that has been clicked
@@ -67,7 +67,7 @@ callCard();
             }
         });
     }
-gamePlay();
+
 
 function matchCards(first, second) {
     if (first === second) {
@@ -86,7 +86,16 @@ function matchCards(first, second) {
         }, delayInMilliseconds);
     }
 }
-
+function startGame() {
+    callCard(); //sets the deck and shuffles
+    gamePlay(); //enables the event listener
+    const delayInMilliseconds = 2000;
+    $("li").toggleClass('open show');
+    setTimeout(function() {
+        $("li").removeClass('open show');
+    }, delayInMilliseconds);
+}
+startGame();
 /*
  * set up the event listener for a card. If a card is clicked:
  
