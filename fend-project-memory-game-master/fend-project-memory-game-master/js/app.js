@@ -8,6 +8,8 @@ let cardCounter=1;
 let openCard;
 let checker =true;
 let sec = 0;
+let winCounter = 0;
+let timerReset;
 
 /*
  * Display the cards on the page
@@ -100,6 +102,10 @@ function matchCards(first, second) {
         $('i[class="' + second + '"]').parent().addClass('match');
         openCard = null;
         openCardSecond = null;
+        winCounter++;
+        if(winCounter === 8) {
+            myFunction();
+        }
 
     } else {
         const delayInMilliseconds = 1000; //1 second
@@ -117,20 +123,47 @@ function startGame() {
     const delayInMilliseconds = 2000;
     $("li").toggleClass('open show');
     setTimeout(function() {
-        $("li").removeClass('open show');
+    $("li").removeClass('open show');
     }, delayInMilliseconds);
+    timer();
     
 }
 startGame();
- 
+ function timer() {
 function pad(val) {
     return val > 9 ? val : "0" + val;
 }
-setInterval(function() {
+timerReset = setInterval(function() {
     document.getElementById("seconds").innerHTML = pad(++sec % 60);
     document.getElementById("minutes").innerHTML = pad(parseInt(sec / 60, 10));
 }, 1000);
+ }
 
+
+function myFunction() {
+    var txt;
+    if (confirm("Play Again?") == true) {
+        resetGame();
+    } else {
+        txt = "You pressed Cancel!";
+    }
+    
+}
+function resetGame() {
+    
+    $("ul[class=deck]").empty();
+    startGame();
+    movesCounter = 0;
+    $("span[class=moves]").html(movesCounter);
+    cardCounter=1;
+    checker =true;
+    sec = 0;
+    winCounter = 0;
+    $("ul[class=stars]").empty();
+    $("ul[class=stars]").append('<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>');
+    clearInterval(timerReset);
+        
+}
 
 /*
  * set up the event listener for a card. If a card is clicked:
