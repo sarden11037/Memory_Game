@@ -3,9 +3,10 @@
  */
 
 const cards = ["fa-diamond","fa-paper-plane-o","fa-anchor","fa-bolt","fa-cube","fa-bicycle","fa-bomb","fa-leaf"];
-let opened = [];
+let movesCounter = 0;
 let cardCounter=1;
 let openCard;
+let checker =true;
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -55,6 +56,8 @@ function shuffle(array) {
     function gamePlay() {
         $("li").click(function() {
             $(this).toggleClass('open show'); //opens the card
+            movesStars();
+            
             if (cardCounter === 1) {
                 openCard = $(":first-child", this).attr('class');
                 cardCounter++;
@@ -67,7 +70,24 @@ function shuffle(array) {
             }
         });
     }
-
+function movesStars() {
+    movesCounter++;
+    $("span[class=moves]").html(movesCounter);
+    if (movesCounter >=17 && movesCounter <=32 && checker == true) {
+        $("ul[class=stars]").empty();
+        $("ul[class=stars]").append('<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star-o"></i></li>');
+        checker =false;
+    }
+    else if (movesCounter >= 33 && movesCounter <= 64 && checker === false) { 
+        $("ul[class=stars]").empty();
+        $("ul[class=stars]").append('<li><i class="fa fa-star"></i></li><li><i class="fa fa-star-o"></i></li><li><i class="fa fa-star-o"></i></li>');
+        checker = true;
+    }
+    else if (movesCounter >65 && checker === true) {
+        $("ul[class=stars]").empty();
+        $("ul[class=stars]").append('<li><i class="fa fa-star-o"></i></li><li><i class="fa fa-star-o"></i></li><li><i class="fa fa-star-o"></i></li>');
+    }
+}
 
 function matchCards(first, second) {
     if (first === second) {
@@ -75,6 +95,8 @@ function matchCards(first, second) {
         $('i[class="' + second + '"]').parent().removeClass('open show');
         $('i[class="' + first + '"]').parent().addClass('match');
         $('i[class="' + second + '"]').parent().addClass('match');
+        openCard = null;
+        openCardSecond = null;
 
     } else {
         const delayInMilliseconds = 1000; //1 second
