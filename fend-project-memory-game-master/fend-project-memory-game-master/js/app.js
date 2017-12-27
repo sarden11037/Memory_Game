@@ -51,40 +51,39 @@ callCard();
 //this event listener opens/displays the card
 // that has been clicked
 
-function gamePlay() {
-    $("li").click(function() {
-        $(this).toggleClass('open show'); //opens the card
-        if (cardCounter === 1) {
-            openCard = $(":first-child", this).attr('class');
-            cardCounter++;
 
-        } else {
+    function gamePlay() {
+        $("li").click(function() {
+            $(this).toggleClass('open show'); //opens the card
+            if (cardCounter === 1) {
+                openCard = $(":first-child", this).attr('class');
+                cardCounter++;
 
-            openCardSecond = $(":first-child", this).attr('class');
-            cardCounter = 1;
-            matchCards(openCard, openCardSecond);
+            } else {
 
-
-        }
-
-
-
-    });
-}
+                openCardSecond = $(":first-child", this).attr('class');
+                cardCounter = 1;
+                matchCards(openCard, openCardSecond);
+            }
+        });
+    }
 gamePlay();
 
 function matchCards(first, second) {
     if (first === second) {
-        alert("match cards has class");
-
-    } else {
-        alert("fall in else match");
-
         $('i[class="' + first + '"]').parent().removeClass('open show');
         $('i[class="' + second + '"]').parent().removeClass('open show');
-        openCard = null;
-        openCardSecond = null;
+        $('i[class="' + first + '"]').parent().addClass('match');
+        $('i[class="' + second + '"]').parent().addClass('match');
 
+    } else {
+        const delayInMilliseconds = 1000; //1 second
+        setTimeout(function() {
+            $('i[class="' + first + '"]').parent().removeClass('open show');
+            $('i[class="' + second + '"]').parent().removeClass('open show');
+            openCard = null;
+            openCardSecond = null;
+        }, delayInMilliseconds);
     }
 }
 
