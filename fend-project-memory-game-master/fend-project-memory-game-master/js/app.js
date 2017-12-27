@@ -4,7 +4,7 @@
 
 const cards = ["fa-diamond","fa-paper-plane-o","fa-anchor","fa-bolt","fa-cube","fa-bicycle","fa-bomb","fa-leaf"];
 let opened = [];
-let cardCounter=0;
+let cardCounter=1;
 let openCard;
 /*
  * Display the cards on the page
@@ -53,23 +53,39 @@ callCard();
 
 function gamePlay() {
     $("li").click(function() {
-        $(this).addClass('open show');
-        openCard = $(":first-child", this).attr('class');
-        cardCounter++;
-        checkCardsMatch(openCard);
+        $(this).toggleClass('open show'); //opens the card
+        if (cardCounter === 1) {
+            openCard = $(":first-child", this).attr('class');
+            cardCounter++;
+
+        } else {
+
+            openCardSecond = $(":first-child", this).attr('class');
+            cardCounter = 1;
+            matchCards(openCard, openCardSecond);
+
+
+        }
+
+
 
     });
 }
+gamePlay();
 
-function checkCardsMatch(open) {
-    if (cardCounter === 1) {
-        opened[0] = open;
-    } else if (cardCounter === 2) {
-        opened[1] = open;
+function matchCards(first, second) {
+    if (first === second) {
+        alert("match cards has class");
+
+    } else {
+        alert("fall in else match");
+
+        $('i[class="' + first + '"]').parent().removeClass('open show');
+        $('i[class="' + second + '"]').parent().removeClass('open show');
+        openCard = null;
+        openCardSecond = null;
+
     }
-}
-function checkCardsNotMAtch() {
-    
 }
 
 /*
