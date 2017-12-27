@@ -53,41 +53,37 @@ callCard();
 
 function gamePlay() {
     $("li").click(function() {
-        $(this).toggleClass('open show');//opens the card
-        if(cardCounter === 1) {
-           openCard = $(":first-child", this).attr('class');
+        $(this).toggleClass('open show'); //opens the card
+        if (cardCounter === 1) {
+            openCard = $(":first-child", this).attr('class');
             cardCounter++;
-            
-        }
-        else {
-            
+
+        } else {
+
             openCardSecond = $(":first-child", this).attr('class');
             cardCounter = 1;
-            matchCards(openCard,openCardSecond);
-            
+            matchCards(openCard, openCardSecond);
+
 
         }
-        
-        
+
+
 
     });
 }
 gamePlay();
 
-function matchCards(first,second) {
-    if(first === second) {
-        
-    }
-    else {
+function matchCards(first, second) {
+    if (first === second) {
+        alert("match cards has class");
+
+    } else {
         alert("fall in else match");
-        //$("i[class=" + first + "]").parent().removeClass('open show');
-       // alert("first find i ");
-        //$("i[class=" + second + "]").parent().removeClass('open show');
-        //$("li",first).removeClass('open show');
-        //$("li").find('i[class=' + first +  ']').removeClass('open show');
-        $("li").find(first).toggleClass('open show');
-        openCard =null;
-        openCardSecond =null;
+
+        $('i[class="' + first + '"]').parent().removeClass('open show');
+        $('i[class="' + second + '"]').parent().removeClass('open show');
+        openCard = null;
+        openCardSecond = null;
 
     }
 }
