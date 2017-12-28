@@ -8,6 +8,7 @@ let sec = 0;
 let winCounter = 0;
 let timerReset;
 let starsCounter =3;
+let timeStart = true;
 
 /*
  * Display the cards on the page
@@ -61,6 +62,10 @@ function shuffle(array) {
 
     function gamePlay() {
         $("li").click(function() {
+            if(timeStart == true) {
+                timeStart = false;
+                timer();
+            }
             
             if (cardCounter === 1) {
                 $(this).toggleClass('open show');
@@ -68,7 +73,7 @@ function shuffle(array) {
                 cardCounter++;
                 movesStars();
 
-            } else if (!$(this).hasClass('open show')) {
+            } else if (!$(this).hasClass('open show') && cardCounter == 2) {
                 $(this).toggleClass('open show');
                 openCardSecond = $(":first-child", this).attr('class');
                 cardCounter = 1;
@@ -77,27 +82,27 @@ function shuffle(array) {
             }
         });
     }
-/* the moves stars function is used to count the number of moves made throughout the game as well as to determine which star quality should be given. 0-16 moves gives three stars, 17-32 moves gives 2 stars, 33-64 gives one star, and more than 64 moves gives zero stars.`checker` is used to make sure the stars are not added more than once.
+/* the moves stars function is used to count the number of moves made throughout the game as well as to determine which star quality should be given. 0-16 moves gives three stars, 17-32 moves gives 2 stars, 33 or more gives one star.`checker` is used to make sure the stars are not added more than once.
 */
 function movesStars() {
     movesCounter++;
     $("span[class=moves]").html(movesCounter);
-    if (movesCounter >=17 && movesCounter <=32 && checker == true) {
+    if (movesCounter <= 16 && checker == true) {
+        $("ul[class=stars]").empty();
+        $("ul[class=stars]").append('<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>');
+        checker =false;
+        starsCounter =3;
+    }
+    else if (movesCounter >= 17 && movesCounter <= 32 && checker === false) { 
         $("ul[class=stars]").empty();
         $("ul[class=stars]").append('<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star-o"></i></li>');
-        checker =false;
-        starsCounter =2;
+        checker = true;
+        starsCounter = 2;
     }
-    else if (movesCounter >= 33 && movesCounter <= 64 && checker === false) { 
+    else if (movesCounter >=33 && checker === true) {
         $("ul[class=stars]").empty();
         $("ul[class=stars]").append('<li><i class="fa fa-star"></i></li><li><i class="fa fa-star-o"></i></li><li><i class="fa fa-star-o"></i></li>');
-        checker = true;
         starsCounter = 1;
-    }
-    else if (movesCounter >65 && checker === true) {
-        $("ul[class=stars]").empty();
-        $("ul[class=stars]").append('<li><i class="fa fa-star-o"></i></li><li><i class="fa fa-star-o"></i></li><li><i class="fa fa-star-o"></i></li>');
-        starsCounter = 0;
     }
 }
 /* the matchCards function check for equality from the cards clicked based on the class of the <i> frame. if the two match, the classes `open show` are removed from the parent <li>, and the class `match` is added. if they do not match, the two classes are removed and that is all. the function also contains a variable that count how many matched cards have been accepted. if 8 are accepted, the myFunction is caled. if the cards do not match, there is a small time function that is called to delay the cards reverting for 1 second.
@@ -117,9 +122,11 @@ function matchCards(first, second) {
 
     } else {
         const delayInMilliseconds = 1000; //1 second
+        $("li").off("click");
         setTimeout(function() {
             $('i[class="' + first + '"]').parent().removeClass('open show');
             $('i[class="' + second + '"]').parent().removeClass('open show');
+            gamePlay();
             openCard = null;
             openCardSecond = null;
         }, delayInMilliseconds);
@@ -135,7 +142,7 @@ function startGame() {
     setTimeout(function() {
         $("li").removeClass('open show');
     }, delayInMilliseconds);
-    timer();
+    
 
 }
 startGame();
@@ -163,6 +170,7 @@ function myFunction() {
 }
 //event listener for the reset button
 $("div[class=restart]").click(function() {
+    timeStart = true;
     resetGame();
 });
 /* the reset game function clears the deck, calls the start game function, resets the moves counter, resets the number of cards matched counter, resets the seconds tracked, resets the stars, adds three full stars, and resets the timer
